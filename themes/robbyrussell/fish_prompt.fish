@@ -8,21 +8,13 @@ function _is_git_dirty
 end
 
 function fish_prompt
-  
-  set -l black_on_white (set_color -b white black)
-
-  set -l black_bg (set_color -b black)
-
   set -l cyan (set_color -o cyan)
   set -l yellow (set_color -o yellow)
   set -l red (set_color -o red)
   set -l blue (set_color -o blue)
   set -l normal (set_color normal)
 
-  set -l short_hostname (hostname -s)
-
   set -l arrow "$red➜ "
-  set -l hostname " $black_on_white$USER@$short_hostname$black_bg "
   set -l cwd $cyan(basename (prompt_pwd))
 
   if [ (_git_branch_name) ]
@@ -35,6 +27,6 @@ function fish_prompt
     end
   end
 
-  echo -n -s $hostname $arrow $cwd $git_info $normal ' '
+  echo -n -s $arrow $cwd $git_info $normal ' '
 end
 
