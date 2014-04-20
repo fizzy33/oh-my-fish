@@ -55,7 +55,7 @@ function fish_prompt
   end
 
   echo " "
-  echo -s (date +%X) $window $git_info $last_status_string
+  echo -s (date "+$c2%H$c0:$c2%M$c0:$c2%S") $window $git_info $last_status_string "  " $CMD_DURATION
   echo -n -s $__fish_prompt_user_hostname $arrow $cwd $white ' ↪ '
 
 end
