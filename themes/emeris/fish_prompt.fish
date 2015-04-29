@@ -1,9 +1,8 @@
-# name: RobbyRussel
-function _git_branch_name
-  echo (command git symbolic-ref HEAD ^/dev/null)
-end
 
 function fish_prompt
+  function _git_branch_name
+    echo (command git symbolic-ref HEAD ^/dev/null)
+  end
   # Save our status
   set -l last_status $status
 
@@ -54,8 +53,13 @@ function fish_prompt
     set window "$green screen($white$WINDOW$normal$green)" 
   end
 
-  echo " "
-  echo -s (date "+$c2%H$c0:$c2%M$c0:$c2%S") $window $git_info $last_status_string "  " $CMD_DURATION
-  echo -n -s $__fish_prompt_user_hostname $arrow $cwd $white ' ↪ '
+  if test -z $CMD_DURATION -o $CMD_DURATION = 0
+    set duration ""
+  else 
+    set duration $CMD_DURATION ms
+  end
 
+  echo " "
+  echo -s (date "+$c2%H$c0:$c2%M$c0:$c2%S") $window $git_info $last_status_string "  " $duration
+  echo -n -s $__fish_prompt_user_hostname $arrow $cwd $white ' ↪ '
 end
